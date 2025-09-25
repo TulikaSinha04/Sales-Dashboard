@@ -1,0 +1,86 @@
+# Steps Involved
+Objective
+Design an interactive dashboard in Power BI for business stakeholders using a Sales/Financial dataset (here: Product_Sales.csv). The dashboard should display KPIs, allow interactivity via slicers, and provide insights on sales agent performance and call analysis.
+
+Step 1: Import Data
+
+1.1 Open Power BI Desktop.
+
+1.2 Get Data → Text/CSV → select Product_Sales.csv.
+
+1.3 Ensure correct column datatypes:
+
+    1.3.1 CallID, CustomerID → Whole Number
+
+    1.3.2 Agent_Name → Text
+
+    1.3.3 Duration → Whole Number
+
+    1.3.4 PickedUp, ProductSold → Whole Number (0/1)
+
+Step 2: Create Measures (DAX)
+
+Defined new KPIs using Modeling → New Measure:
+
+2.1 Total Calls = COUNTROWS(Product_Sales)
+2.2 Total Pickups = CALCULATE(COUNTROWS(Product_Sales), Product_Sales[PickedUp] = 1)
+2.3 Pickup Rate % = DIVIDE([Total Pickups], [Total Calls], 0)
+2.4 Total Products Sold = SUM(Product_Sales[ProductSold])
+2.5 Conversion Rate % = DIVIDE([Total Products Sold], [Total Pickups], 0)
+2.6 Avg Call Duration = AVERAGE(Product_Sales[Duration])
+
+Step 3: Dashboard Pages
+3.1 Page 1 → Executive Summary
+
+3.1.1 Card Visuals:
+Total Calls, Total Pickups, Pickup Rate %, Total Products Sold, Conversion Rate %, Avg Call Duration.
+
+3.1.2 Slicers:
+Agent_Name, PickedUp (0/1 → “Picked / Not Picked”), ProductSold (0/1 → “Sold / Not Sold”).
+
+Layout: Cards aligned at top, slicers on side for easy filtering.
+
+3.2 Page 2 → Agent Performance
+3.2.1 Clustered Bar Chart: Agent_Name vs. Total Products Sold.
+
+3.2.2 Stacked Column Chart: Agent_Name vs. Total Calls & Total Pickups.
+
+3.2.3 Table Visual: Agent_Name with Total Calls, Pickups, Products Sold, Conversion Rate %.
+
+3.3 Page 3 → Call Duration Analysis
+3.3.1 Histogram: Distribution of call durations (grouped into bins, e.g., 60 sec).
+
+3.3.2 Box & Whisker Plot (custom visual): Agent_Name vs. Call Duration (to analyze spread).
+
+3.3.3 Slicer: ProductSold (filter durations based on success).
+
+Step 4: Formatting
+4.1 Applied consistent theme (View → Themes).
+
+4.2 Converted slicers to dropdowns for clean look.
+
+4.3 Adjusted card formatting (bold, large font).
+
+4.4 Added dashboard title with Text Box.
+
+Step 5: Navigation
+5.1 Created Bookmarks (View → Bookmarks Pane).
+
+5.2 Inserted Buttons for navigation (Insert → Buttons → Blank → Action → Bookmark).
+
+5.3 Created a navigation menu for smooth switching between pages.
+
+Step 6: Exporting to PowerPoint
+
+Two methods used (I used Static One):
+6.1 Interactive Method → Power BI Add-in for PowerPoint (Insert → Add-ins → Get Add-ins → Power BI → Embed live report).
+
+6.2 Static Method → Export from Power BI Service (File → Export → PowerPoint → static or embed live data).
+
+# Deliverables
+
+Interactive Power BI Dashboard with 3 pages:
+Executive Summary
+Agent Performance
+Call Duration Analysis
+PPT Summary with embedded dashboard and static snapshots.
